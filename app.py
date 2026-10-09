@@ -188,6 +188,7 @@ def profile_sidebar():
     st.sidebar.header("Mood profile")
 
     profile = st.session_state.profile
+    genre_options = ["rock", "lofi", "pop", "jazz", "electronic", "ambient", "other"]
 
     profile["name"] = st.sidebar.text_input(
         "Profile name",
@@ -215,10 +216,12 @@ def profile_sidebar():
             value=chill_max_energy,
         )
 
+    current_genre = str(profile.get("favorite_genre", "rock")).lower()
+    selected_index = genre_options.index(current_genre) if current_genre in genre_options else 0
     profile["favorite_genre"] = st.sidebar.selectbox(
         "Favorite genre",
-        options=["rock", "lofi", "pop", "jazz", "electronic", "ambient", "other"],
-        index=0,
+        options=genre_options,
+        index=selected_index,
     )
 
     profile["include_mixed"] = st.sidebar.checkbox(
